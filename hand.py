@@ -1,6 +1,18 @@
 from card_enums import Value, Suit
 from card import Card
 
+def hand_from_str(s):
+	card_s = [i.strip().upper() for i in s.split(",")]
+	fin = []
+	for card in card_s:
+		val = Value.get(card[:-1])
+		suit = Suit.get(card[-1:])
+		
+		fin.append(Card(val, suit))
+		print(f"val:{val}, suit:{suit}")
+
+	return Hand(fin)
+
 class Hand:
 	def __init__(self, cards):
 		self.cards = cards
@@ -44,6 +56,22 @@ class Hand:
 				max_v = v
 		return max_k
 
+	def suit_strength(self, suit){
+		for card in self.cards:
+			suit = card.suit.value
+			is_bower = Card.is_bower(card, suit)
+			value = card.value.value
+			if is_bower:
+				value = is_bower
+				try:
+					suits[Suit.opposite_suit(suit)] += Value.l_bower.value
+				except KeyError:
+					suits[Suit.opposite_suit(suit)] = Value.l_bower.value
+			try:
+				suits[suit] += value
+			except KeyError:
+				suits[suit] = value
+	}
 
 	def perceived_strength(self):  # TODO see current implementation notes in func. str
 		"""
@@ -63,10 +91,17 @@ class Hand:
 							- summing trump values
 							- short suited/number of trump cards
 							- outside aces
-					- pros and cons for each:
+				- pros and cons for each:
 					pass
 
 			:return: strength : int (est. num of tricks (1) or value to be compared to a threshold (2))
 		"""
+		strength = {"hearts": suit_sum,
+					"clubs": suit_sum,
+					"spades": suit_sum,
+					"diamonds": suit_sum}
+
+		return 
+
 		pass
 

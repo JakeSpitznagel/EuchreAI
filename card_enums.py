@@ -47,6 +47,12 @@ class Suit(Enum):
 		elif suit == Suit.spades.value: return Suit.clubs.value
 		elif suit == Suit.clubs.value: return Suit.spades.value
 
+	@classmethod
+	def get(cls, s):
+		for val in cls.__members__:
+			if s.upper() == val.upper() or s.upper() == val.upper()[:1]: return cls[val]
+
+		return ''
 
 class Value(OrderedEnum):
 	nine = 1
@@ -57,3 +63,13 @@ class Value(OrderedEnum):
 	ace = 6
 	l_bower = 10
 	r_bower = 15
+
+	@classmethod
+	def get(cls, s):
+		if s.upper() == '9' or s.upper() == 'NINE': return cls.nine
+		if s.upper() == '10' or s.upper() == 'TEN': return cls.ten
+		if s.upper() == 'J' or s.upper() == 'JACK': return cls.jack
+		if s.upper() == 'Q' or s.upper() == 'QUEEN': return cls.queen
+		if s.upper() == 'K' or s.upper() == 'KING': return cls.king
+		if s.upper() == 'A' or s.upper() == 'ACE': return cls.ace
+		return ''
