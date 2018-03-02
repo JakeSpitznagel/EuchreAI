@@ -56,7 +56,7 @@ class Hand:
 				max_v = v
 		return max_k
 
-	def suit_strength(self, suit){
+	def suit_strength(self, suit):
 		for card in self.cards:
 			suit = card.suit.value
 			is_bower = Card.is_bower(card, suit)
@@ -71,7 +71,7 @@ class Hand:
 				suits[suit] += value
 			except KeyError:
 				suits[suit] = value
-	}
+	
 
 	def perceived_strength(self):  # TODO see current implementation notes in func. str
 		"""
@@ -101,7 +101,4 @@ class Hand:
 					"spades": suit_sum,
 					"diamonds": suit_sum}
 
-		return 
-
-		pass
-
+		return 5
