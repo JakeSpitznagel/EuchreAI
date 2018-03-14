@@ -18,6 +18,20 @@ class Controller:
 		for k, v in kwargs.items():
 			print(k)
 
+	def process_command(self, cmd):
+		ss_count = 0
+		sub_cmd = ''
+		if cmd in self.tmap: sub_cmd = cmd
+		else:
+			for map_cmd in self.tmap:
+				if(isSubString(cmd, map_cmd)):
+					sub_cmd = map_cmd
+					ss_count += 1
+				if(ss_count >= 2): break
+		
+		if(sub_cmd): self.tmap[sub_cmd](*args, **kwargs)
+	
+
 if __name__ == "__main__":
 	c = Controller()
 	d, h1, h2, h3, h4 = deal()
@@ -25,3 +39,5 @@ if __name__ == "__main__":
 	print(c.tmap) #["foo"]()
 	c.fmap["one"](**kwargs)
 	c.fmap["two"](**kwargs)
+
+
