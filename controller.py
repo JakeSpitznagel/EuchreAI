@@ -15,7 +15,7 @@ class Controller:
 		self.one = one()
 		self.two = one(2)
 		self.fmap = {'one': self.one.foo, 'two': self.two.foo}
-		self.tmap = {method_name: getattr(self.one, method_name) for method_name in dir(self.one) if callable(getattr(self.one, method_name)) and method_name[:2] != '__'}
+		self.tmap = {method_name: getattr(self.one, method_name) for method_name in dir(self.one) if callable(getattr(self.one, method_name)) and method_name[:1] != '_'}
 
 	@staticmethod
 	def _get_method_dict(obj):
