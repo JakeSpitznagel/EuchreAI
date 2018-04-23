@@ -1,5 +1,11 @@
 from card_enums import Value, Suit
 
+def card_from_str(s):
+	val = Value.get(s[:-1])
+	suit = Suit.get(s[-1:])
+
+	return Card(val, suit)
+
 class Card:
 	def __init__(self, value, suit):
 		self.value = value
@@ -61,3 +67,8 @@ class Card:
 					'ace': 'Ace', 'l_bower': 'Jack', 'r_bower': 'Jack'}
 		suit_map = {'Hearts': '♥', 'Clubs': '♣', 'Spades': '♠', 'Diamonds': '♦'}
 		return f'{value_map[self.value.name]} {suit_map[self.suit.value]}'
+
+
+if __name__ == '__main__':
+	c = card_from_str('10h')
+	print(c)

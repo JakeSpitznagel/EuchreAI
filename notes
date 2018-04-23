@@ -1,0 +1,8 @@
+controller acts like a central hub to direct the flow of the game
+
+main control loop:
+	- notify_player(gameState)
+		- player changes gameState (both AI and human)
+	- interpret changes to gameState
+		- things like trump being chosen or going alone
+	- display gameState
