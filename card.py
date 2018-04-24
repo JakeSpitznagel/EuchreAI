@@ -19,8 +19,8 @@ class Card:
 		return (Value.get(s[:-1]), Suit.get(s[-1:]))
 
 	def assign_trump(self, trump):
-		self.is_trump = self.suit == trump
-		self.assign_bowers(trump)
+		self.is_trump = self.suit == Suit.get(trump)
+		self.assign_bowers(Suit.get(trump))
 
 	def assign_bowers(self, trump):
 		if self.value.name == 'jack':
@@ -78,4 +78,8 @@ class Card:
 
 if __name__ == '__main__':
 	c = Card('10h')
-	print(c)
+	c.assign_trump('hearts')
+	b = Card('as')
+	b.assign_trump('hearts')
+
+	print(c > b)
