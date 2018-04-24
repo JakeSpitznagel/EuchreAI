@@ -1,22 +1,24 @@
 from card_enums import Value, Suit
 from card import Card
-
-def hand_from_str(s):
-	card_s = [i.strip().upper() for i in s.split(",")]
-	fin = []
-	for card in card_s:
-		val = Value.get(card[:-1])
-		suit = Suit.get(card[-1:])
-		
-		fin.append(Card(val, suit))
-		print(f"val:{val}, suit:{suit}")
-
-	return Hand(fin)
+from from_str_decorator import from_str_init
 
 class Hand:
-	def __init__(self, cards):
-		self.cards = cards
+	cards: list
+
+	@from_str_init
+	def __init__(self, *args):
 		self.suit_sums = {}
+
+	def from_str(self, s):
+		card_s = [i.strip().upper() for i in s.split(",")]
+		fin = []
+		for card in card_s:
+			val = Value.get(card[:-1])
+			suit = Suit.get(card[-1:])
+			
+			fin.append(Card(val, suit))
+		
+		return (fin,)
 
 	def sum_suits(self):
 		self.suit_sums['hearts'] = len([heart for heart in self.cards if heart.value == 'Hearts'])
@@ -102,3 +104,7 @@ class Hand:
 					"diamonds": suit_sum}
 
 		return 5
+
+if __name__== '__main__':
+	h = Hand('10c, 9d, ks, as, js')
+	print(h.cards)

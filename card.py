@@ -1,15 +1,22 @@
 from card_enums import Value, Suit
+from from_str_decorator import from_str_init
 
-def card_from_str(s):
+def from_str(s):
 	val = Value.get(s[:-1])
 	suit = Suit.get(s[-1:])
 
-	return Card(val, suit)
+	return val, suit
 
 class Card:
-	def __init__(self, value, suit):
-		self.value = value
-		self.suit = suit
+	value: Value
+	suit: Suit
+
+	@from_str_init
+	def __init__(self, *args):
+		pass
+
+	def from_str(self, s):
+		return (Value.get(s[:-1]), Suit.get(s[-1:]))
 
 	def assign_trump(self, trump):
 		self.is_trump = self.suit == trump
@@ -70,5 +77,5 @@ class Card:
 
 
 if __name__ == '__main__':
-	c = card_from_str('10h')
+	c = Card('10h')
 	print(c)
