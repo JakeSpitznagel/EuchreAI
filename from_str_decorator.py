@@ -16,6 +16,7 @@ def from_str_init(func):
 		for name, val in zip(self.__annotations__, args):
 			if len(args) == 1 and type(args[0]) is str:
 				for k, v in zip(self.__annotations__, self.from_str(val)):
+					assert self.__annotations__[k] == type(v), f'from_str type does not match expected type, expected: {self.__annotations__[k]}, actual: {type(v)}'
 					setattr(self, k, v)
 				break
 			elif self.__annotations__[name] == type(val):

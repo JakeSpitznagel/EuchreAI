@@ -1,4 +1,5 @@
 from from_str_decorator import from_str_init
+import sys
 import unittest
 
 class from_strTests(unittest.TestCase):
@@ -41,10 +42,16 @@ class from_strTests(unittest.TestCase):
 		self.assertEqual(c2.default, 'other')
 
 	def test_init_body(self):
-		a1 = D(1, 2)
-		a2 = D("12")
-		self.assertEqual(a1.body, True)
-		self.assertEqual(a2.body, True)
+		d1 = D(1, 2)
+		d2 = D("12")
+		self.assertEqual(d1.body, True)
+		self.assertEqual(d2.body, True)
+
+	def test_type_mismatch(self):
+		try:
+			e1 = E("12")
+		except AssertionError as e:
+			if '-v' in sys.argv: print(e)
 
 class A:
 	'''
@@ -108,8 +115,22 @@ class D:
 
 	@from_str_init
 	def __init__(self, *args):
-		print(f'args given: {args}')
+		if '-v' in sys.argv: print(f'args given: {args}') # if verbose flag is passed to unittest
 		self.body = True
+
+	def from_str(self, s):
+		return (int(s[0]), int(s[1]))
+
+class E:
+	'''
+	from string type mis-match
+	'''
+	one: str
+	two: str
+
+	@from_str_init
+	def __init__(self, *args):
+		pass
 
 	def from_str(self, s):
 		return (int(s[0]), int(s[1]))
