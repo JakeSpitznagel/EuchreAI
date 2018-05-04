@@ -20,6 +20,13 @@ class Hand:
 		
 		return (fin,)
 
+	def __contains__(self, item):
+		if not hasattr(self, 'cards'): return False
+		else: return item in self.cards
+	
+	def __repr__(self):
+		return f'{self.cards}' if hasattr(self, 'cards') else 'hand is empty'
+
 	def sum_suits(self):
 		self.suit_sums['hearts'] = len([heart for heart in self.cards if heart.value == 'Hearts'])
 		self.suit_sums['diamonds'] = len([diamond for diamond in self.cards if diamond.value == 'Diamonds'])

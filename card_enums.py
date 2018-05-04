@@ -52,8 +52,6 @@ class Suit(Enum):
 		for val in cls.__members__:
 			if s.upper() == val.upper() or s.upper() == val.upper()[:1]: return cls[val]
 
-		return ''
-
 class Value(OrderedEnum):
 	nine = 1
 	ten = 2

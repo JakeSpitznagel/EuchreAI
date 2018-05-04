@@ -1,12 +1,6 @@
 from card_enums import Value, Suit
 from from_str_decorator import from_str_init
 
-def from_str(s):
-	val = Value.get(s[:-1])
-	suit = Suit.get(s[-1:])
-
-	return val, suit
-
 class Card:
 	value: Value
 	suit: Suit
@@ -47,6 +41,9 @@ class Card:
 				return Value.l_bower.value
 			else: return False
 
+	def __eq__(self, other):
+		return self.value == other.value and self.suit == other.suit
+
 	def __gt__(self, other):
 		try:
 			assert hasattr(self, 'is_trump') and hasattr(other, 'is_trump'), 'One of the Cards compared has not been assigned trump'
@@ -75,11 +72,11 @@ class Card:
 		suit_map = {'Hearts': '♥', 'Clubs': '♣', 'Spades': '♠', 'Diamonds': '♦'}
 		return f'{value_map[self.value.name]} {suit_map[self.suit.value]}'
 
-
 if __name__ == '__main__':
 	c = Card('10h')
-	c.assign_trump('hearts')
-	b = Card('as')
-	b.assign_trump('hearts')
+	print(c)
+	#c.assign_trump('hearts')
+	#b = Card('as')
+	#b.assign_trump('hearts')
 
-	print(c > b)
+	#print(c > b)
