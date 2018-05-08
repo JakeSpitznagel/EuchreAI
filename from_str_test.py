@@ -134,4 +134,3 @@ class E:
 
 	def from_str(self, s):
 		return (int(s[0]), int(s[1]))
-

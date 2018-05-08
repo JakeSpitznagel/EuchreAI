@@ -22,5 +22,3 @@ def from_str_init(func):
 			elif self.__annotations__[name] == type(val):
 				setattr(self, name, val)
 	return inner
-	
-

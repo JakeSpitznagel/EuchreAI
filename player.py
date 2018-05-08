@@ -2,11 +2,11 @@ from hand import Hand
 from card import Card
 
 gameState = {'phase': 0, 
-			'trump': 'hearts', 
-			'lead_suit': 'hearts', 
-			'active_cards': 'kh, qd, as', 
-			'all_played_cards': 'kh, qd, as, 10s, 9s, ah, kd', 
-			'flipped_card': 'jh',
+			'trump': '', 
+			'lead_suit': '', 
+			'active_cards': '', 
+			'all_played_cards': '', 
+			'flipped_card': '',
 			'current_player': 0,
 			'is_solo': False}
 
@@ -47,10 +47,10 @@ class Player:
 		card = Card(input(f'which card would you like to play? {self.hand}'))
 		print(card)
 		assert card in self.hand, 'Card not in hand'
-		
-		gameState['active_cards'] += ', ' + str(card)
-		gameState['all_played_cards'] += ', ' + str(card)
-		
+		gameState['active_cards'] += f', {card}' if len(gameState['active_cards']) else str(card)
+		gameState['all_played_cards'] += f', {card}' if len(gameState['all_played_cards']) else str(card)
+		self.hand.remove(card)
+
 if __name__ == '__main__':
 	p = Player(False)
 
@@ -58,6 +58,8 @@ if __name__ == '__main__':
 		print(i)
 
 	text = input('hey, command me boy\n')
-	p._process_command(text)
+	while text != 'quit':
+		p._process_command(text)
+		text = input('BOI I NEED MORE\n')
 
 	print(gameState)

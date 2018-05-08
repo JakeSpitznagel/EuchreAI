@@ -24,6 +24,9 @@ class Hand:
 		if not hasattr(self, 'cards'): return False
 		else: return item in self.cards
 	
+	def remove(self, item):
+		self.cards.remove(item)
+
 	def __repr__(self):
 		return f'{self.cards}' if hasattr(self, 'cards') else 'hand is empty'
 
